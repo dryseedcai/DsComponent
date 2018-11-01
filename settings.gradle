@@ -1,0 +1,7 @@
+include ':sample:app', ':sample:module-a', ':sample:module-b', ':sample:common', ':dscomponent-gradle-plugin', ':dscomponent-annotations', ':dscomponent-api'
+
+
+/**
+ * string 注入
+ */
+apply from: "$rootDir/gradle/inject-string.gradle"

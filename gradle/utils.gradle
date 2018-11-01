@@ -1,0 +1,55 @@
+/**
+ * get gradle.property or ext.property boolean value
+ */
+def getBooleanPropertyIfExist(propertyString) {
+    if (hasProperty(propertyString)) {
+        if (project[propertyString].toBoolean()) {
+            return true
+        }
+    }
+    return false
+}
+
+/**
+ * 根据property选择依赖方式，0采用project形式编译，1采用aar形式编译，2不编译
+ */
+def runtimeOnlyByPropertyType(Project project, String modulePath, String version = '1.0.0') {
+    String moduleName
+    int index = modulePath.lastIndexOf(':')
+    if (index >= 0) {
+        moduleName = modulePath.substring(index + 1, modulePath.length())
+    } else {
+        moduleName = modulePath
+    }
+
+    int type = getCompileType(moduleName + 'CompileType')
+    if (type == 0) {
+        dependencies.runtimeOnly project.project(modulePath)
+    } else if (type == 1) {
+        dependencies.runtimeOnly "${rootProject.ext.moduleAarGroup}:$moduleName:$version"
+    }
+}
+
+/**
+ * 获取Module的编译方式，在gradle.properties中配置
+ * @param moduleName +"CompileType"
+ * @return 0采用project形式编译，1采用aar形式编译，2不编译
+ */
+def getCompileType(moduleCompileType) {
+    if (hasProperty(moduleCompileType)) {
+        try {
+            def t = Integer.parseInt(project[moduleCompileType])
+            if (t == 1 || t == 2) {
+                return t
+            }
+        } catch (Exception e) {
+            return 0
+        }
+    }
+    return 0
+}
+
+ext {
+    getBooleanPropertyIfExist = this.&getBooleanPropertyIfExist
+    runtimeOnlyByPropertyType = this.&runtimeOnlyByPropertyType
+}

@@ -1,0 +1,53 @@
+apply plugin: 'kotlin'
+apply plugin: 'groovy'
+apply plugin: 'java-library'
+apply plugin: 'maven'
+
+repositories {
+    jcenter()
+    google()
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    implementation project(':dscomponent-annotations')
+    implementation 'org.ow2.asm:asm:5.0.3'
+    implementation 'com.android.tools.build:gradle:3.1.3'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.51"
+}
+
+//gradlePlugin {
+//    plugins {
+//        DsComponentPlugin {
+//            id = 'com.dryseed.dscomponent.plugin'
+//            implementationClass = 'com.dryseed.dscomponent.plugin.DsComponentPlugin'
+//        }
+//    }
+//}
+
+//group和version
+group = 'com.dryseed.dscomponent.plugin'
+version = '1.0.5'
+
+//打包到本地或者远程Maven库
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //提交到远程服务器：
+            // repository(url: "http://www.xxx.com/repos") {
+            //    authentication(userName: "admin", password: "admin")
+            // }
+            //本地的Maven地址设置为E:/Maven
+            //repository(url: uri(rootProject.ext.localMavenUrl))
+            repository(url: uri("C:/repo"))
+        }
+    }
+}
