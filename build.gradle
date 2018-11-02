@@ -53,5 +53,5 @@ ext {
     moduleAarGroup = 'com.dryseed.dscomponent'
 
     // Local Maven Url
-    localMavenUrl = "$rootDir/local_maven"
+    localMavenUrl = "C:/repo" //"$rootDir/local_maven"
 }

@@ -24,18 +24,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.51"
 }
 
-//gradlePlugin {
-//    plugins {
-//        DsComponentPlugin {
-//            id = 'com.dryseed.dscomponent.plugin'
-//            implementationClass = 'com.dryseed.dscomponent.plugin.DsComponentPlugin'
-//        }
-//    }
-//}
-
 //group和version
 group = 'com.dryseed.dscomponent.plugin'
-version = '1.0.5'
+version = '1.0.6'
 
 //打包到本地或者远程Maven库
 uploadArchives {

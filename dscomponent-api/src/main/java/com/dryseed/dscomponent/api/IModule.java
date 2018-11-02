@@ -9,7 +9,7 @@ import android.view.View;
 
 import java.util.HashMap;
 
-interface IModule {
+public interface IModule {
     abstract HashMap<String, View> getModuleView();
 
     abstract HashMap<String, Class> getModuleService();
